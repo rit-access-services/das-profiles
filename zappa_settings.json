@@ -1,0 +1,28 @@
+{
+    "dev": {
+        "app_function": "app.wsgi_app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "s3_bucket": "zappa-ena9mj25k",
+        "events": [{
+           "function": "app.refresh_profile_data", // The function to execute
+           "expression": "rate(30 days)" // When to execute it (in cron or rate format)
+        }],
+        "environment_variables": {
+          "bucket_name": "zappa-ena9mj25k",
+        },
+    },
+    "production": {
+        "app_function": "app.wsgi_app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "s3_bucket": "zappa-dasprofiles",
+        "events": [{
+           "function": "app.refresh_profile_data", // The function to execute
+           "expression": "rate(1 day)" // When to execute it (in cron or rate format)
+        }],
+        "environment_variables": {
+          "bucket_name": "zappa-dasprofiles",
+        },
+    }
+}
