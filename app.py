@@ -5,10 +5,8 @@ from datetime import datetime
 
 # Third Party Library Imports
 import boto3
-from apistar import App, Include, Route, environment, schema
-from apistar.docs import docs_routes
+from apistar import App, Route, environment, schema
 from apistar.http import Response
-from apistar.statics import static_routes
 
 from scraper import DasProfileScraper
 
@@ -68,8 +66,6 @@ settings = {
 routes = [
     Route('/', 'GET', get_all_profiles),
     Route('/profiles', 'GET', get_all_profiles),
-    Include('/docs', docs_routes),
-    Include('/static', static_routes)
 ]
 
 app = App(routes=routes, settings=settings)
