@@ -11,12 +11,19 @@
         "environment_variables": {
           "bucket_name": "zappa-ena9mj25k",
         },
+        "keep_warm": false,
+        "profile_name": "zappa",
     },
     "production": {
         "app_function": "app.wsgi_app",
         "aws_region": "us-east-1",
         "profile_name": "default",
         "s3_bucket": "zappa-dasprofiles",
+        "apigateway_description": "DAS Profiles with Zappa and API Star",
+        "lambda_description": "DAS Profiles with Zappa and API Star",
+        "log_level": "WARNING",
+        "debug": false,
+        "profile_name": "zappa",
         "events": [{
            "function": "app.refresh_profile_data", // The function to execute
            "expression": "rate(1 day)" // When to execute it (in cron or rate format)
