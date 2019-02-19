@@ -54,3 +54,19 @@ A sample output would look like:
 ## Development
 
 You do not need AWS to develop all parts of this application, for instance you can work on the `scraper.py` and create tests that do not rely on the AWS functions. If you want full access to develop you will need valid [AWS credentials](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks/) that authenticate through `IAM` to this service, meaning I would need to add you. Alternatively you can fork and set up your own AWS account. When you add an IAM policy for Zappa, the [following worked for me](https://github.com/Miserlou/Zappa/issues/244#issuecomment-303697308).
+
+## Deploy
+
+This is deployed as an AWS Lambda function through Zappa. The app is a wsgi app that exposes a `/` and `/profiles` endpoint that have the same functionality. They read the json data from S3 and return it. Zappa is setup to call the `app.refresh_profile_data` function according to the interval rate defined in `zappa_settings.json`. This function invocation scrapes the NTID website and updates profile information, storing the result on S3.
+
+To deploy a new update:
+
+```shell
+$ zappa update production
+```
+
+If you are changing any routes in the app you will need to do a fresh deploy:
+```shell
+$ zappa deploy production
+```
+
